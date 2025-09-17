@@ -22,6 +22,19 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
 }
+.nav button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #aacadf;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
 
 .logo h2 {
   margin: 0;
@@ -133,4 +146,54 @@ body {
 
 .products button:hover {
   background-color: #2980b9;
+}
+.product-details {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(194, 127, 127, 0.826);
+}
+
+.product-details img {
+  width: 350px;
+  height: 350px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #f8f9fa;
+  box-shadow: 0 2px 8px rgba(170, 202, 223, 0.12);
+}
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px; /* Hidden by default */
+  width: 400px;
+  height: 100vh;
+  background-color: white;
+  border-left: 2px lightgray solid;
+  transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  padding: 1rem;
+  z-index: 1000;
+}
+.cart-drawer.open {
+  right: 0; /* Slide in */
+}
+.checkout-button {
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }

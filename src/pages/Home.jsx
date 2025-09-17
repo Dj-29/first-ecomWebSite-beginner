@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Filter } from "../components/Filter";
-
+import { Link } from "react-router-dom";
+import { CartDrawer } from "../components/CartDrower";
+import { CheckOut } from "./Checkout";
 export const Home = () => {
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
-
+  const [selectedCat, setSelectedCat] = useState("all");
+  const [isOpen, setIsOpen] = useState(false);
   const addToCart = (item) => {
     console.log("Added to cart:", item);
   };
@@ -21,32 +24,34 @@ export const Home = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+  const filteredItems =
+    selectedCat === "all"
+      ? items
+      : items.filter((el) => el.category === selectedCat);
 
   return (
     <>
       <div className="nav">
+        <button onClick={() => setIsOpen(isOpen ? false : true)}>
+          🛒 Cart
+        </button>
+
         <div className="logo">
           <h2>Fake ecom website</h2>
         </div>
       </div>
-      <Filter
-        categories={categories}
-        filter={(cat) => {
-          if (cat === "all") {
-            fetchProducts();
-          } else {
-            setItems((prev) => prev.filter((item) => item.category === cat));
-          }
-        }}
-      />
+      <CartDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Filter categories={categories} setFilter={setSelectedCat} />
       <div className="products">
-        {items.map((item) => (
-          <div className="product" key={item.id}>
-            <img src={item.image} alt={item.title} />
-            <h4>{item.title}</h4>
-            <p>${item.price} </p>
-            <button onClick={() => addToCart(item)}>Add to Cart</button>
-          </div>
+        {filteredItems.map((item) => (
+          <Link to={`/product/${item.id}`}>
+            <div className="product" key={item.id}>
+              <img src={item.image} alt={item.title} />
+              <h4>{item.title}</h4>
+              <p>${item.price} </p>
+              <button onClick={() => addToCart(item)}>Add to Cart</button>
+            </div>
+          </Link>
         ))}
       </div>
     </>
